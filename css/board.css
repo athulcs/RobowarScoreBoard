@@ -6,7 +6,7 @@ html, body {
 
 @font-face {
 	font-family: 'digi';
-	src: url('/fonts/digital-7.tff');
+	src: url('fonts/digital-7.tff');
 }
 
 #mainclock {
