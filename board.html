@@ -1,0 +1,39 @@
+<html class="gr__localhost">
+  <head>
+    <title>Scoreboard</title>
+    <!--link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/-->
+    <!--link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Syncopate|Source+Code+Pro|Exo+2|Droid+Sans' rel='stylesheet"/-->
+    <link rel="stylesheet" href="css/bootstrapmin.css">
+    <link rel="stylesheet" href="css/googleapi.css">
+    <link rel="stylesheet" href="css/board.css"/>
+  </head>
+  <body data-gr-c-s-loaded="true">
+    <div class="text-center" id="scores">
+      <div class="col-md-6 score" id="teamhome">
+      	<h4 class="teamlabel">CloudBots</h4>
+      	<h2 class="scorenumber" id="CloudBotsscore">0</h2>
+      </div>
+      <div class="col-md-6 score" id="teamaway">
+      <h4 class="teamlabel">Titans</h4>
+      <h2 class="scorenumber" id="Titansscore">0</h2>
+  </div>
+    </div>
+    <div class="text-center container" id="maintimercontainer">
+      
+      <h1 id="mainclock">10:00</h1>
+      
+    </div>
+    <div class="text-center" id="bottom">
+      <div class="col-md-6" id="shotclockcontainer">
+        <h2 id="shotclocktimer">24.02</h2>
+        <h3 id="shotclock">Shot Clock</h3>
+      </div>
+      <div class="col-md-6" id="tournament"><img class="img img-responsive" id="tournamentlogo"/></div>
+    </div>
+    <audio id="buzzer" src="sound/buzzer.mp3" preload="auto"></audio>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="js/board.js"></script>
+  </body>
+</html>
