@@ -1,0 +1,90 @@
+html
+	head
+		meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+		link(rel="stylesheet" href="css/bootstrapmin.css")
+		link(rel="stylesheet" href="css/remotegoogle.css")
+		link(rel="stylesheet" href="css/remote.css")
+
+		title Scoreboard Remote
+	body
+		h1#maintitle.text-center Remote
+		.container.text-center
+			.col-xs-6
+				button#start.btn.btn-lg.btn-success.timerbutton Start
+			.col-xs-6
+				button#stop.btn.btn-lg.btn-danger.timerbutton Pause
+	
+		.text-center#scores
+			.col-xs-4
+				h3#teamhometitle.teamtitle
+				.btn-group
+					.btn-group-xs
+						.scorebutton.btn#teamhomeplus: span +10
+						.scorebutton.btn#teamhomeplustw: span +20
+						.scorebutton.btn#teamhomeplusth: span +30
+					input.form-control.text-center#teamhomescore(type="number")
+					.btn-group-xs
+						.scorebutton.btn#teamhomeminus: span -10
+						.scorebutton.btn#teamhomeminustw: span -20
+						.scorebutton.btn#teamhomeminusth: span -30
+			#maintimercontainer.col-xs-4
+				#mainclock
+			.col-xs-4
+				h3#teamawaytitle.teamtitle
+				.btn-group
+					.btn-group-xs
+						.scorebutton.btn#teamawayplus: span +10
+						.scorebutton.btn#teamawayplustw: span +20
+						.scorebutton.btn#teamawayplusth: span +30
+					input.form-control.text-center#teamawayscore(type="number")
+					.btn-group-xs
+						.scorebutton.btn#teamawayminus: span -10
+						.scorebutton.btn#teamawayminustw: span -20
+						.scorebutton.btn#teamawayminusth: span -30
+		.carousel-inner#scores
+			br
+			.text-center
+				button#timeout.btn.btn-primary.game-button Start Timeout
+			br
+			.text-center
+				button#shotclockremote.btn.btn-warning Reset Shot Clock
+			br
+			.text-center
+				button.btn.btn-danger(data-toggle="modal" data-target="#clearClockConfirm") Reset Clock
+			br
+			.text-center
+				button.btn.btn-success.game-button(data-toggle="modal" data-target="#resetgameconfirm") New Game				
+		// Popup to confirm clearing the clock
+		#clearClockConfirm.modal.fade(role='dialog' aria-hidden='false')
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+						h4.modal-title Reset Game Clock
+					.modal-body
+						h6 WARNING
+						p This will reset the game clock. This action CANNOT be undone.
+					.modal-footer
+						button.btn.btn-success(data-dismiss='modal') Cancel
+						button#resetclock.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Clock
+		// Popup to New Game
+		#resetgameconfirm.modal.fade(role='dialog' aria-hidden='false')
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(data-dismiss='modal' aria-hidden='true'): span.glyphicon.glyphicon-remove-circle
+						h4.modal-title New Match
+					.modal-body
+						h6 Enter Team Names
+						label.col-form-label Team1
+						input.form-control.text-center#team1(type="text" required)
+						label.col-form-label Team2
+						input.form-control.text-center#team2(type="text" required)
+					.modal-footer
+						button.btn.btn-success(data-dismiss='modal') Cancel
+						button#resetbutton.btn.btn-danger(data-dismiss='modal' aria-hidden='true') Reset Game
+		script(src="socket.io/socket.io.js")
+		script(src="js/jquerymin.js")
+		script(src="js/bootstrap.js")
+		script(src="js/remote.js")
+		script(src="js/board.js")

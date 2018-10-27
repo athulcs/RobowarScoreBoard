@@ -1,0 +1,62 @@
+html, body {
+	height: 100%;
+	background-color: black;
+}
+
+@font-face {
+	font-family: 'digi';
+	src: url('/fonts/digital-7.tff');
+}
+
+.timerbutton {
+	height: 10em;
+	width: 90%;
+}
+
+#maintitle {
+	color: white;
+	font-family: 'Marvel', sans-serif;
+}
+
+.teamtitle {
+	font-family: 'Marvel', sans-serif;
+	color: white;
+}
+
+#start {
+	background-color: green;
+}
+
+#stop {
+	background-color: red;
+}
+
+#timerstatus {
+	margin-top: 1em;
+	color: white;
+	font-size: 1.2em;
+	font-family: 'Hammersmith One', sans-serif;
+}
+
+#maintimercontainer {
+	color: white;
+	font-family: 'digi', sans-serif;
+	height: 5%;
+}
+
+#mainclock {
+	font-size: 40px;
+}
+
+#timeout {
+	margin-top: 4em;
+}
+
+.game-button {
+	height: 5em;
+}
+
+.scorebutton {
+	background-color: white;
+	height: 4.5em;
+}
