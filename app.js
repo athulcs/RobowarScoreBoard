@@ -3,7 +3,7 @@
  *
  * @author Rukmal Weerawarana
  */
-
+var ip = require('ip');
 var express = require('express');
 var app = express();
 var path = require('path');
@@ -16,6 +16,8 @@ var port = process.env.PORT || 3000;
 // Starting server
 server.listen(port, function () {
 	console.log('Scoreboard running on port ' + port);
+	console.log('Remote Address:'+ip.address());
+	writeToLog('NEW MATCH\n');
 });
 
 

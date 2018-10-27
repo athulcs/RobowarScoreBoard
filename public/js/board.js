@@ -186,10 +186,10 @@ var currentShotClock;
  */
 function startShotClock () {
 	if (ISTIMEOUT) {
-		$('#shotclock').text('Timeout');
+		$('#shotclock').text('Pinning');
 		ISTIMEOUT = false;
 	} else {
-		$('#shotclock').text('Shot Clock');
+		$('#shotclock').text('Pin Time');
 	}
 	var prevShotClockCycleTime = new Date().getTime();
 	shotClock = setInterval(function () {
@@ -257,7 +257,6 @@ function updateShotClock () {
  */
 function startTimeout () {
 	ISTIMEOUT = true;
-	stopClock();
 	CURRENT_SHOT_CLOCK_TIME = initialConfig.timeout_length;
 	startShotClock();
 }
