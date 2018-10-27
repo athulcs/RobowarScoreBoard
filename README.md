@@ -10,7 +10,7 @@ Scoreboard uses Socket.io's real time bidirectional event based communication sy
 
 Clone the repository from GitHub by running the following in the terminal.
 ```bash
-$ git clone https://github.com/rukmal/Scoreboard.git
+$ git clone https://github.com/athulcs/RobowarScoreboard.git
 ```
 
 All of the Scoreboard configuration is stored in the ```config.json``` file. It must have the following data:
@@ -51,8 +51,4 @@ Navigate to ```localhost:3000``` in your browser and enjoy!
 
 ## Contact
 
-This is an open source project released under the [MIT License](LICENSE). Contact me if you want to suggest an improvement, or fork and send a pull request!
-
-Follow me on Twitter ([@rukmal](http://twitter.com/rukmal_w)) and [GitHub](http://github.com/rukmal).
-
-http://rukmal.me
+This is an open source project released under the [MIT License](LICENSE).
