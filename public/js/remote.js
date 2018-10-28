@@ -2,6 +2,9 @@ var socket = io();
 var startPressed=false;
 var pausePressed=false;
 var initialConfig;
+var CURRENT_TIME;
+var TIME_INTERVAL = 100;
+var TIME_CUTOFF = 59999;
 
 // Socket to emit type of connection to server
 socket.emit('type', 'remote');
@@ -11,6 +14,7 @@ $('#start').click(function () {
 	if(!startPressed){
 		startPressed = true;
 		pausePressed = false;
+		startClock();
 		socket.emit('start time', '');
 	}
 });
@@ -20,6 +24,7 @@ $('#stop').click(function () {
 	if(!pausePressed){
 		pausePressed =true;
 		startPressed =false;
+		stopClock();
 		socket.emit('pause time', '');
 	}
 });
@@ -27,6 +32,10 @@ $('#stop').click(function () {
 // Button handler to send signal to server to reset clock
 $('#resetclock').click(function () {
 	socket.emit('reset clock', '');
+	stopClock();
+	CURRENT_TIME = initialConfig.half_length;
+	$('#mainclock').css('color', 'white');
+	updateClock();
 });
 
 // Button handler to send signal to server to reset shot clock
@@ -141,8 +150,12 @@ $('#resetbutton').click(function () {
 		team1: initialConfig.team_home,
 		team2: initialConfig.team_away
 		}
+		pausePressed =true;
+		startPressed =false;
+		stopClock();
+		CURRENT_TIME = initialConfig.half_length;
+		updateClock();
 		socket.emit('new game',teams);
-	
 });
 
 
@@ -161,10 +174,22 @@ function changeScore (scoreTeam, newScore) {
 
 socket.on('initial game state', function (state) {
 	initialConfig = state;
+	if (CURRENT_TIME === undefined) {
+		CURRENT_TIME = initialConfig.half_length;
+	}
 	$('#teamhometitle').text(initialConfig.team_home);
 	$('#teamawaytitle').text(initialConfig.team_away);
 	$('#teamhomescore').attr('value', initialConfig.team_home_score);
 	$('#teamawayscore').attr('value', initialConfig.team_away_score);
+	updateClock();
+});
+
+socket.on('current time status',function(status){
+	if(status==='pause'){
+		pausePressed =true;
+		startPressed =false;
+		stopClock();
+	}
 });
 
 function updatePageTimeStatus (status) {
@@ -175,4 +200,59 @@ function updatePageTimeStatus (status) {
 		status = 'Clock Stopped';
 	}
 	$('#timerstatus').text(status);
+}
+
+
+// Maintimer scripts
+
+function startClock () {
+	if (CURRENT_TIME != 0) {
+		var prevCycleTime = new Date().getTime();
+		clockInterval = setInterval(function () {
+			var currentTime = new Date().getTime();
+			if (currentTime - prevCycleTime >= TIME_INTERVAL) {
+				CURRENT_TIME = CURRENT_TIME - TIME_INTERVAL;
+				updateClock();
+				prevCycleTime = currentTime;
+			}
+		}, 1);
+	} 
+}
+
+function updateClock () {
+	var printTime;
+	if (CURRENT_TIME === 0) {
+		clearInterval(clockInterval);
+		stopClock();
+		$('#mainclock').css('color', 'red');
+	}
+	var formattedTime = msToTime(CURRENT_TIME);
+	if (CURRENT_TIME >= TIME_CUTOFF) {
+		// Greater than TIME_CUTOFF
+		printTime = formattedTime[1] + ':' + formattedTime[2];
+	} else {
+		// Less than TIME_CUTOFF
+		var ms = formattedTime[3];
+		ms = ms / 100;
+		printTime = formattedTime[2] + '.' + ms;
+	}
+	$('#mainclock').text(printTime);
+}
+
+function msToTime (s) {
+	
+	function addZ (n) {
+		return (n < 10? '0' : '') + n;
+	}
+	var ms = s % 1000;
+	s = (s - ms) / 1000;
+	var secs = s % 60;
+	s = (s - secs) / 60;
+	var mins = s % 60;
+	var hrs = (s - mins) / 60;
+	return [addZ(hrs), mins, addZ(secs), addZ(ms)];
+}
+
+function stopClock () {
+	clearInterval(clockInterval);
 }

@@ -206,10 +206,8 @@ function startShotClock () {
  * Function to reset the shot clock
  */
 function resetShotClock () {
+	$('#shotclock').text('Pin Time');
 	stopShotClock();
-	if (ISTIMERUNNING) {
-		startShotClock();
-	}
 }
 
 /**
@@ -229,7 +227,9 @@ function updateShotClock () {
 	var printShotClockTime = '';
 	if (CURRENT_SHOT_CLOCK_TIME === 0) {
 		document.getElementById('buzzer').play();
+		$('#shotclock').text('Pin Time');
 		stopClock();
+		socket.emit('update remote status', 'pause');
 	}
 	if (CURRENT_SHOT_CLOCK_TIME < SHOT_CLOCK_TIME_CUTOFF) {
 		$('#shotclocktimer').css('color', 'red');
@@ -245,6 +245,7 @@ function updateShotClock () {
 		printShotClockTime = parseInt(formattedShotClockTime[2]) + '.' + ms;
 	}
 	$('#shotclocktimer').text(printShotClockTime);
+
 }
 
 

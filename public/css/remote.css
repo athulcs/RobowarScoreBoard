@@ -46,6 +46,7 @@ html, body {
 
 #mainclock {
 	font-size: 40px;
+	color: white;
 }
 
 #timeout {
